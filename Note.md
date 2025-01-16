@@ -48,3 +48,31 @@ Muốn tạo entity thì tạo như trên docs rồi nhét vào entity trong ph�
 
 TypeOrmModule.forFeature([User])
 import orm module vào file module của entity
+
+--- Pipes và Validation ---
+Pipes:
+https://docs.nestjs.com/pipes
+dùng để chuyển đổi kiểu dữ liệu từ request thành kiểu dữ liệu đúng trong typescript
+-> thường dùng trong service
+
+Validation:
+https://docs.nestjs.com/techniques/validation#auto-validation
+cài thư viện: npm i --save class-validator class-transformer
+config trong main.ts
+app.useGlobalPipes(new ValidationPipe());
+thường sẽ làm trong DTO
+
+--- Serialization ---
+là 1 interceptor
+dùng để ẩn hiện những trường ko muốn show ra khi trả về response
+dùng @Exclude()s trong entity
+dùng @UseInterceptors(ClassSerializerInterceptor)
+ở những nơi response về entity vừa exclude thường gắn ở controller
+
+--- Middleware ---
+dùng để xử lý yêu cầu trước khi thực hiện controller
+https://docs.nestjs.com/middleware
+
+--- Guard ---
+https://docs.nestjs.com/guards
+dùng để xem xem người dùng có đủ quyền để truy cập ko

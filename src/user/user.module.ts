@@ -1,8 +1,9 @@
-import { Module } from '@nestjs/common';
+import { MiddlewareConsumer, Module } from '@nestjs/common';
 import { UserController } from './user.controller';
 import { UserService } from './user.service';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { User } from './user.entity';
+import { LoggerMiddleware } from 'src/middlewares/logging.middleware';
 
 // import entity vao user module
 @Module({
@@ -10,4 +11,9 @@ import { User } from './user.entity';
   controllers: [UserController],
   providers: [UserService],
 })
-export class UserModule {}
+export class UserModule {
+  configure(consumer: MiddlewareConsumer) {
+    // * là all route
+    consumer.apply(LoggerMiddleware).forRoutes('*');
+  }
+}
