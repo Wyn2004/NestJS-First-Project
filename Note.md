@@ -72,7 +72,34 @@ dùng @UseInterceptors(ClassSerializerInterceptor)
 --- Middleware ---
 dùng để xử lý yêu cầu trước khi thực hiện controller
 https://docs.nestjs.com/middleware
+configure(consumer: MiddlewareConsumer) {
+consumer
+.apply(LoggerMiddleware)
+.exclude(
+{ path: 'user/login', method: RequestMethod.POST }, // Loại trừ route POST /user/login
+{ path: 'admin', method: RequestMethod.GET } // Loại trừ route GET /admin
+)
+.forRoutes(
+{ path: 'user', method: RequestMethod.ALL }, // Áp dụng middleware cho tất cả route bắt đầu với /user
+{ path: 'product', method: RequestMethod.GET } // Chỉ áp dụng cho GET /product
+);
+}
 
 --- Guard ---
 https://docs.nestjs.com/guards
 dùng để xem xem người dùng có đủ quyền để truy cập ko
+
+--- Cấu hình dotenv ---
+https://docs.nestjs.com/techniques/configuration
+https://docs.nestjs.com/techniques/database#async-configuration
+cài thư viện này: npm i --save @nestjs/config
+paste ConfigModule.forRoot() vào app.module
+
+--- JWT, bCrypt NestJS ---
+https://docs.nestjs.com/security/authentication#implementing-the-sign-in-endpoint
+
+--- SetMeta và Reflector ---
+Trong NestJS, metadata thường được sử dụng để lưu trữ và truyền dữ liệu giữa các thành phần (decorator, middleware, guard, interceptor, v.v.).
+
+Reflector là một lớp trong NestJS được sử dụng để lấy metadata đã được gắn với một đối tượng hoặc phương thức.
+Bạn cũng có thể set metadata bằng decorator hoặc API cụ thể.
