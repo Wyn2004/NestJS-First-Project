@@ -27,6 +27,6 @@ export class UserModule {
         { path: '/api/v1/users/login', method: RequestMethod.POST },
         { path: '/api/v1/users/register', method: RequestMethod.POST },
       )
-      .forRoutes('*');
+      .forRoutes(UserController);
   }
 }

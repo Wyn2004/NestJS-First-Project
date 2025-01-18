@@ -5,9 +5,8 @@ import { TypeOrmModule } from '@nestjs/typeorm';
 import { UserModule } from './user/user.module';
 import { ConfigModule, ConfigService } from '@nestjs/config';
 import { User } from './user/user.entity';
-import { PostModule } from './post/post.module';
-import { PostController } from './post/post.controller';
-import { PostService } from './post/post.service';
+import { PostModule } from './posts/post.module';
+import { Posts } from './posts/posts.entity';
 
 @Module({
   imports: [
@@ -21,7 +20,7 @@ import { PostService } from './post/post.service';
         username: configService.get('DB_USERNAME'),
         password: configService.get('DB_PASSWORD'),
         database: configService.get('DB_DATABASE_NAME'),
-        entities: [User],
+        entities: [User, Posts],
         synchronize: true,
       }),
       inject: [ConfigService],
@@ -29,7 +28,7 @@ import { PostService } from './post/post.service';
     UserModule,
     PostModule,
   ],
-  controllers: [AppController, PostController],
-  providers: [AppService, PostService],
+  controllers: [AppController],
+  providers: [AppService],
 })
 export class AppModule {}

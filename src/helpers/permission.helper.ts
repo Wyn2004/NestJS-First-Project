@@ -16,4 +16,14 @@ export class Permission {
     }
     throw new BadRequestException('You are not allowed to update this user');
   }
+
+  static checkUpdatePost(currentUser: User, idUser: number): boolean {
+    if (currentUser.id === idUser) {
+      return true;
+    }
+    if (currentUser.role === 'admin') {
+      return true;
+    }
+    throw new BadRequestException('You are not allowed to update this post');
+  }
 }
